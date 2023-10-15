@@ -1,0 +1,41 @@
+-*- musica -*- 
+Musica sacada de la bibloteca gratuita de loudly.com
+
+The_Darkside
+The_Sun
+
+
+-*- efectos_de_sonido -*-
+
+crédito a ERH en freesound
+--strange and sci-fi by ERH
+
+erh__raw
+erh__raw-2
+erh__tension
+erh__boom-3
+erh__boom-2
+erh__boom-1
+erh__pulsar
+
+crédito a MATRIXXX_ en freesound
+--MATRIXXX a.k.a. Lil Mati
+
+matrixxx__retro-laser-shot-01
+matrixxx__retro-laser-shot-02
+matrixxx__retro-laser-shot-03
+matrixxx__retro-laser-shot-04
+matrixxx__retro-laser-shot-05
+matrixxx__retro-laser-shot-06
+matrixxx__retro-laser-shot-07
+matrixxx__cheerful
+
+crédito a bareform en freesound
+--Bjørn Molstad / BareForm
+
+bareform__boom-bang
+
+crédito a juskiddink en freesound
+--juskiddink
+
+juskiddink__distant-explosion
