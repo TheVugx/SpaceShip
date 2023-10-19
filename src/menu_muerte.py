@@ -7,11 +7,12 @@ class Menu_muerte():
     """
     clase Menu Muerte, este es el Menu que aparece al morir en el juego.
     """
-    def __init__(self,musica: Musica):
+    def __init__(self,musica: Musica, juego):
         """
         Contructor de la Clase Menu Muerte.\n
         :param musica: Una instancia de la clase musica.
         """
+        self.juego = juego
         self.menu = Menu(musica)
         self.logo = pygame.image.load("assets/img/logo.png")
         self.boton_puntaje = pygame.Rect(300, 200, 200, 50)
@@ -37,7 +38,7 @@ class Menu_muerte():
                     elif self.boton_salir_menu.collidepoint(event.pos):
                         menu = False
                         puntaje_valor = 1
-                        self.menu.mostrar_menu(pantalla)
+                        self.menu.mostrar_menu(pantalla, self.juego)
             font = pygame.font.Font(None, 38)
             fontEspecial = pygame.font.Font(None, 76)
             pantalla.blit(self.logo, (200, 20))

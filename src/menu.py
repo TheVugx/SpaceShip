@@ -26,11 +26,12 @@ class Menu():
         self.menu_desafios = Menu_desafios()
 
 
-    def mostrar_menu(self, pantalla: pygame.Surface):
+    def mostrar_menu(self, pantalla: pygame.Surface, juego):
         """
         Metodo que se encarga en mostrar el menu principal
         :param pantalla: valores de la pantalla del juego.
         """
+        self.juego = juego
         menu = True
         while menu:
             for event in pygame.event.get():
@@ -44,7 +45,7 @@ class Menu():
                         pygame.quit()
                         sys.exit()
                     elif self.boton_desafios.collidepoint(event.pos):
-                        self.desafios = self.menu_desafios.mostrar_menu_desafios(pantalla)
+                        self.desafios = self.menu_desafios.mostrar_menu_desafios(pantalla, self.juego)
                     elif self.boton_config.collidepoint(event.pos):
                         self.config.mostrar_menu_config(pantalla)
 

@@ -44,7 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         if self.disparo >= 1:
             musica.play_disparo()
             self.disparo -= 1
-            self.nuevo_disparo = Disparo(self.rect)
+            self.nuevo_disparo = Disparo(self.rect, self.pantalla)
             return self.nuevo_disparo
 
     def update(self):
@@ -83,4 +83,10 @@ class Jugador(pygame.sprite.Sprite):
         :param disparos: valor que quieres como inicio de disparos.
         """
         self.disparo = disparos
+    
+    def repocicionar(self):
+        """
+        Metodo para pocicionar el jugador despues de morir
+        """
+        self.rect.x = self.pantalla.get_width() / 2
 

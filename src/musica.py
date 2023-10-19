@@ -18,24 +18,24 @@ class Musica():
         
         self.son_efect = "assets/sonidos/efectos_de_sonido/"
 
-        self.bum = [pygame.mixer.Sound(self.son_efect + "bareform__boom-bang.aiff"),
-                    pygame.mixer.Sound(self.son_efect + "juskiddink__distant-explosion.wav")]
+        self.bum = [pygame.mixer.Sound(self.son_efect + "/bareform__boom-bang.aiff"),
+                    pygame.mixer.Sound(self.son_efect + "/juskiddink__distant-explosion.wav")]
         
-        self.disparos =[pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-01.wav"),
-                        pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-02.wav"),
-                        pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-03.wav"),
-                        pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-04.wav"),
-                        pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-05.wav"),
-                        pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-06.wav"),
-                        pygame.mixer.Sound(self.son_efect + "matrixxx__retro-laser-shot-07.wav")]
+        self.disparos =[pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-01.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-02.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-03.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-04.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-05.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-06.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/matrixxx__retro-laser-shot-07.wav")]
         
-        self.efectos = [pygame.mixer.Sound(self.son_efect +  "erh__boom-1.wav"),
-                        pygame.mixer.Sound(self.son_efect +  "erh__boom-2.wav"),
-                        pygame.mixer.Sound(self.son_efect +  "erh__boom-3.wav"),
-                        pygame.mixer.Sound(self.son_efect +  "erh__pulsar.wav"),
-                        pygame.mixer.Sound(self.son_efect +   "erh__raw-2.wav"),
-                        pygame.mixer.Sound(self.son_efect +     "erh__raw.wav"),
-                        pygame.mixer.Sound(self.son_efect + "erh__tension.wav")]
+        self.efectos = [pygame.mixer.Sound(self.son_efect +  "/erh__boom-1.wav"),
+                        pygame.mixer.Sound(self.son_efect +  "/erh__boom-2.wav"),
+                        pygame.mixer.Sound(self.son_efect +  "/erh__boom-3.wav"),
+                        pygame.mixer.Sound(self.son_efect +  "/erh__pulsar.wav"),
+                        pygame.mixer.Sound(self.son_efect +   "/erh__raw-2.wav"),
+                        pygame.mixer.Sound(self.son_efect +     "/erh__raw.wav"),
+                        pygame.mixer.Sound(self.son_efect + "/erh__tension.wav")]
 
     def iniciar_musica(self):
         """

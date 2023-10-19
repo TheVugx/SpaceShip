@@ -4,20 +4,23 @@ from enemigo import EnemigoBase,EnemigoRectangular, EnemigoCircular, EnemigoCuad
 
 class ges_enemigos():
     """
-    Clase que se encargar de gestionar y crear Enemigos.
+    Clase que se encargar de gestionar y crear Enemigos.\n
+    Tipos de enemigos que maneja los siguientes enemigos:\n     
+    cuadrado, rectangular, circular, hexagonal, octagonal
     """
-    def __init__(self):
+    def __init__(self, lista_enemigos: str=[]):
         """
         Constructor de la clase ges_enemigos.
+        :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
-        pass
+        self.lista_enemigos = lista_enemigos
 
     def iniciar_enemigos(self, pantalla: pygame.Surface)->EnemigoBase:
         """
-        Metodo que crea un enemigo al azar de la lista["rectangular","cuadrado", "octagonal", "hexagonal"].\n
+        Metodo que crea un enemigo al azar de la lista de enemigos anteriormente generada.\n
         :param pantalla: valores de la pantalla del juego.
         """
-        self.tipo_enemigo = random.choice(["rectangular","cuadrado", "octagonal", "hexagonal"])
+        self.tipo_enemigo = random.choice(self.lista_enemigos)
 
         if self.tipo_enemigo == "rectangular":
             nuevo_enemigo = EnemigoRectangular(pantalla, random.randrange(8,12,1), random.randrange(20,35,5), random.randrange(50,80,2))

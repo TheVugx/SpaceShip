@@ -1,5 +1,5 @@
 import pygame
-import sys
+
 
 class Menu_desafios():
     """
@@ -16,7 +16,8 @@ class Menu_desafios():
         self.img_des_3 = pygame.image.load("assets/img/ch_3.png")
         self.img_des_4 = pygame.image.load("assets/img/ch_4.png")
         self.img_des_5 = pygame.image.load("assets/img/ch_5.png")
-        self.img_des_6 = pygame.image.load("assets/img/ch_6..png")
+        self.img_des_6 = pygame.image.load("assets/img/ch_6.png")
+        self.img_des_7 = pygame.image.load("assets/img/ch_7.png")
 
 
         self.boton_des_1 = pygame.Rect(100, 170, 50, 50)
@@ -40,7 +41,7 @@ class Menu_desafios():
 
         self.boton_volver_menu = pygame.Rect(275, 500, 250, 50)
 
-    def mostrar_menu_desafios(self, pantalla: pygame.Surface):
+    def mostrar_menu_desafios(self, pantalla: pygame.Surface, juego):
         """
         Metodo que se encarga en mostrar el menu de desafios.\n
         :param pantalla: valores de la pantalla del juego.
@@ -50,11 +51,28 @@ class Menu_desafios():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    
                     if self.boton_volver_menu.collidepoint(event.pos):
                         return #menu_desafios = False  
+                    if self.boton_des_1.collidepoint(event.pos):
+                        juego.iniciar(100)
+                        juego.gameloop(20,1,100)
+                    if self.boton_des_2.collidepoint(event.pos):
+                        juego.iniciar(3,["cuadrado"])
+                        juego.gameloop(200,1050,7,1,1,["cuadrado"])
+                    if self.boton_des_3.collidepoint(event.pos):
+                        juego.iniciar(3,["rectangular"])
+                        juego.gameloop(200,1050,7,1,1,["rectangular"])
+                    if self.boton_des_4.collidepoint(event.pos):
+                        juego.iniciar(3,["circular"])
+                        juego.gameloop(200,1050,7,1,1,["circular"])    
+                    if self.boton_des_5.collidepoint(event.pos):
+                        juego.iniciar(3,["hexagonal"])
+                        juego.gameloop(200,1050,7,1,1,["hexagonal"])
+                    if self.boton_des_6.collidepoint(event.pos):
+                        juego.iniciar(3,["octagonal"])
+                        juego.gameloop(200,1050,7,1,1,["octagonal"])
+
 
             pantalla.fill((0, 0, 0))  
 
@@ -87,7 +105,7 @@ class Menu_desafios():
             pantalla.blit(self.img_des_4, (400, 170))
             pantalla.blit(self.img_des_5, (500, 170))
             pantalla.blit(self.img_des_6, (600, 170))
-            pantalla.blit(self.img_des_0, (100, 270))
+            pantalla.blit(self.img_des_7, (100, 270))
             pantalla.blit(self.img_des_0, (200, 270))
             pantalla.blit(self.img_des_0, (300, 270))
             pantalla.blit(self.img_des_0, (400, 270))

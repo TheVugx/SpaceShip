@@ -23,7 +23,7 @@ class Main():
         self.puntaje_anterior = 1
         self.gametick = 1
 
-        self.menu_muerte = Menu_muerte(self.musica)
+        self.menu_muerte = Menu_muerte(self.musica, self)
         self.menu = Menu(self.musica)
 
         self.pantalla = pygame.display.set_mode((self.ANCHO, self.ALTO))
@@ -41,7 +41,6 @@ class Main():
         self.reloj = pygame.time.Clock()
 
         self.in_bon = ges_bonificaciones()
-        self.in_ene = ges_enemigos()
 
         self.jugando = True
         self.movimiento_izquierda = False
@@ -49,14 +48,17 @@ class Main():
 
 
 
-    def iniciar(self):
+    def iniciar(self, disparos = 2, lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
         """
         Metodo que inicializa variables para iniciar el juego
+        :param disparos: cantidad de disparos que quires que inicialice el jugador
+        :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
         self.musica.detener_musica_menu()
         self.musica.iniciar_musica()
         self.jugador.iniciar_puntaje()
-        self.jugador.iniciar_disparo()
+        self.jugador.iniciar_disparo(disparos)
+        self.jugador.repocicionar()
         self.grupo_enemigos.empty()
         self.grupo_bonificaciones.empty()
         self.grupo_balas.empty()
@@ -65,6 +67,8 @@ class Main():
         self.movimiento_derecha = False
         self.puntaje_anterior = 1
         self.gametick = 1
+        self.in_ene = ges_enemigos(lista_enemigos)
+
 
     def iniciar_objetos(self, cantidad_en: int, cantidad_bon: int):
         """
@@ -78,10 +82,11 @@ class Main():
             self.grupo_bonificaciones.add(self.in_bon.iniciar_bonificaciones(self.pantalla))
         
 
-    def control_objetos(self, disparos = int):
+    def control_objetos(self, disparos: int, lista_enemigos):
         """
         Metodo que actualizar y dibujar todos los objetos en la pantalla, balas, jugador, enemigos y bonificaciones.\n
         :param disparos: numero de cantidad de balas que da una bonifiacion de disparos
+        :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
         self.colisiones_balas = pygame.sprite.groupcollide(self.grupo_enemigos, self.grupo_balas, False, True)
         self.colisiones_bonificaciones = pygame.sprite.spritecollide(self.jugador, self.grupo_bonificaciones, False)
@@ -95,7 +100,7 @@ class Main():
 
         self.jugador.dibujar() 
         for bala in self.grupo_balas:
-            bala.dibujar(self.pantalla)
+            bala.dibujar()
         for enemigo in self.grupo_enemigos:
             enemigo.dibujar()
         for bonificaciones in self.grupo_bonificaciones:
@@ -106,7 +111,7 @@ class Main():
             self.jugando = False
             self.musica.detener_musica()
             self.menu_muerte.mostrar_menu_muerte(self.pantalla, self.jugador.puntaje)
-            self.iniciar()
+            self.iniciar(disparos, lista_enemigos)
             
     def control_puntaje(self):
         """
@@ -139,48 +144,17 @@ class Main():
                 self.musica.play_efecto()
 
         
-        
 
-    def gameloop(self):
+    def gameloop(self, tick_ene: int, tick_bon:int, ini_en: int, ini_bon = 1, disparos = 1,
+                 lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
         """
-        Metodo que carga el gameloop principal 
-        """
-        while self.jugando:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.jugando = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        self.movimiento_izquierda = True
-                    elif event.key == pygame.K_d:
-                        self.movimiento_derecha = True
-                    elif event.key == pygame.K_SPACE:
-                        if self.jugador.disparo >= 1:
-                            self.grupo_balas.add(self.jugador.disparar(self.musica))
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_a:
-                        self.movimiento_izquierda = False
-                    elif event.key == pygame.K_d:
-                        self.movimiento_derecha = False
-                
-            if self.movimiento_izquierda:
-                self.jugador.mover_izquierda()
-            if self.movimiento_derecha:
-                self.jugador.mover_derecha()
-
-            if self.gametick == 2:
-                self.iniciar_objetos(10,4)
-                
-            self.control_objetos(1)
-            self.control_puntaje()
-            self.generar_objetos(200,1050)
-            pygame.display.flip()
-            self.reloj.tick(self.FPS)
-        pygame.quit()
-
-    def gameloop_des1(self):
-        """
-        Metodo que carga el gameloop desafio 1 
+        Metodo que carga el gameloop principal.\n
+        :param tick_ene: cada cuantos tick se genera un enemigo.
+        :param tick_bon: cada cuantos tick se genera una bonificacion.
+        :param ini_en: cantidad de enemigos que se generan en los primeros tick.
+        :param ini_bon: cantidad de bonificaciones que se generan en los primeros tick (recomendado dejar en 1).
+        :param disparos: cantidad de balas que aumenta al recojer una bonificacion de municion
+        :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
         while self.jugando:
             for event in pygame.event.get():
@@ -206,20 +180,20 @@ class Main():
                 self.jugador.mover_derecha()
 
             if self.gametick == 2:
-                self.iniciar_objetos(30,1)
+                self.iniciar_objetos(ini_en, ini_bon)
                 
-            self.control_objetos(100)
+            self.control_objetos(disparos, lista_enemigos)
             self.control_puntaje()
-            self.generar_objetos(50,1050)
-            print(self.jugador.disparo)
+            self.generar_objetos(tick_ene,tick_bon)
             pygame.display.flip()
             self.reloj.tick(self.FPS)
         pygame.quit()
-
 
 
 juego = Main()
 
-juego.menu.mostrar_menu(juego.pantalla)
+juego.menu.mostrar_menu(juego.pantalla, juego)
 juego.iniciar()
-juego.gameloop()
+juego.gameloop(200,1050,7,1,1)
+
+
