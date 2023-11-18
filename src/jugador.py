@@ -13,9 +13,9 @@ class Jugador(pygame.sprite.Sprite):
         :param pantalla: valores de la pantalla del juego.
         """
         super().__init__()
-        self.imagen = pygame.Surface((50, 50), pygame.SRCALPHA)
-        pygame.draw.polygon(self.imagen, (255, 255, 255), [(0, 50), (25, 0), (50, 50)])
-        self.rect = self.imagen.get_rect()
+        self.image = pygame.Surface((50, 50), pygame.SRCALPHA)
+        pygame.draw.polygon(self.image, (255, 255, 255), [(0, 50), (25, 0), (50, 50)])
+        self.rect = self.image.get_rect()
         self.rect.center = (pantalla.get_width() // 2, pantalla.get_height() - 50)
         self.pantalla = pantalla
         self.puntaje = 0
@@ -54,7 +54,7 @@ class Jugador(pygame.sprite.Sprite):
         """
         Metodo que dibujar al Jugador.
         """
-        self.pantalla.blit(self.imagen, self.rect)
+        self.pantalla.blit(self.image, self.rect)
 
     def aumentar_puntaje(self, puntos = 1):
         """

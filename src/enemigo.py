@@ -26,33 +26,21 @@ class EnemigoBase(pygame.sprite.Sprite):
         """
         return -(random.randrange(50, self.pantalla.get_height(), 10))
 
-    def update(self, musica: Musica, jugador: Jugador, colisiones_balas):
+    def update(self):
         """
         Metodo para actualizar el objeto enemigo, este metodo tambien gestiona
         las coliciones con las balas.\n
-        :param musica: Una instancia de Musica.
-        :param jugador: Una instancia de Jugador.
-        :param colisiones_balas: groupcollide de grupo de enemigos y el grupo de balas.
         """
         self.rect.y += self.velocidad_y
         if self.rect.y > self.pantalla.get_height():
             self.recolocar()
             self.colisionada = False
-        if colisiones_balas:
-            musica.play_boom()
-            for enemigo in colisiones_balas:
-                if not enemigo.colisionada:
-                    self.height = enemigo.rect.height
-                    self.width = enemigo.rect.width
-                    enemigo.kill()
-                    jugador.aumentar_puntaje(int((self.height+self.width)/3))
-                    enemigo.colisionada = True
 
     def dibujar(self):
         """
         Metodo que dibujar a una enemigos.
         """
-        self.pantalla.blit(self.imagen, self.rect)
+        self.pantalla.blit(self.image, self.rect)
 
     def recolocar(self):
         """
@@ -76,9 +64,9 @@ class EnemigoRectangular(EnemigoBase):
         """
         super().__init__(pantalla)
         self.velocidad_y = velocidad_y
-        self.imagen = pygame.Surface((ancho, alto), pygame.SRCALPHA)
-        self.imagen.fill(self.color)
-        self.rect = self.imagen.get_rect()
+        self.image = pygame.Surface((ancho, alto), pygame.SRCALPHA)
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, pantalla.get_width() - ancho)
         self.rect.y = self.num_y()
 
@@ -96,9 +84,9 @@ class EnemigoCircular(EnemigoBase):
         super().__init__(pantalla)
         self.velocidad_y = velocidad_y
         self.radio = radio
-        self.imagen = pygame.Surface((2 * radio, 2 * radio), pygame.SRCALPHA)
-        pygame.draw.circle(self.imagen, self.color, (self.radio, self.radio), self.radio)
-        self.rect = self.imagen.get_rect()
+        self.image = pygame.Surface((2 * radio, 2 * radio), pygame.SRCALPHA)
+        pygame.draw.circle(self.image, self.color, (self.radio, self.radio), self.radio)
+        self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, pantalla.get_width() - 2 * radio)
         self.rect.y = self.num_y()
 
@@ -116,9 +104,9 @@ class EnemigoCuadrado(EnemigoBase):
         super().__init__(pantalla)
         self.velocidad_y = velocidad_y
         self.lado = lado
-        self.imagen = pygame.Surface((lado, lado), pygame.SRCALPHA)
-        self.imagen.fill(self.color)
-        self.rect = self.imagen.get_rect()
+        self.image = pygame.Surface((lado, lado), pygame.SRCALPHA)
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, pantalla.get_width() - lado)
         self.rect.y = self.num_y()
 
@@ -136,7 +124,7 @@ class EnemigoHexagonal(EnemigoBase):
         super().__init__(pantalla)
         self.velocidad_y = velocidad_y
         self.lado = lado
-        self.imagen = pygame.Surface((self.lado, self.lado), pygame.SRCALPHA)
+        self.image = pygame.Surface((self.lado, self.lado), pygame.SRCALPHA)
         lados = 6
         angulo = math.pi / 3
         vertices = []
@@ -144,8 +132,8 @@ class EnemigoHexagonal(EnemigoBase):
             x = int(self.lado / 2 + (self.lado / 2) * math.cos(i * angulo))
             y = int(self.lado / 2 + (self.lado / 2) * math.sin(i * angulo))
             vertices.append((x, y))
-        pygame.draw.polygon(self.imagen, self.color, vertices)
-        self.rect = self.imagen.get_rect()
+        pygame.draw.polygon(self.image, self.color, vertices)
+        self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, pantalla.get_width() - self.lado)
         self.rect.y = self.num_y()
 
@@ -163,7 +151,7 @@ class EnemigoOctagonal(EnemigoBase):
         super().__init__(pantalla)
         self.velocidad_y = velocidad_y
         self.lado = lado
-        self.imagen = pygame.Surface((self.lado, self.lado), pygame.SRCALPHA)
+        self.image = pygame.Surface((self.lado, self.lado), pygame.SRCALPHA)
         lados = 8
         angulo = math.pi / 4
         vertices = []
@@ -171,7 +159,7 @@ class EnemigoOctagonal(EnemigoBase):
             x = int(self.lado / 2 + (self.lado / 2) * math.cos(i * angulo))
             y = int(self.lado / 2 + (self.lado / 2) * math.sin(i * angulo))
             vertices.append((x, y))
-        pygame.draw.polygon(self.imagen, self.color, vertices)
-        self.rect = self.imagen.get_rect()
+        pygame.draw.polygon(self.image, self.color, vertices)
+        self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, pantalla.get_width() - self.lado)
         self.rect.y = self.num_y()

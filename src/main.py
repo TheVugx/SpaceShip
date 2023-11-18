@@ -88,13 +88,10 @@ class Main():
         :param disparos: numero de cantidad de balas que da una bonifiacion de disparos
         :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
-        self.colisiones_balas = pygame.sprite.groupcollide(self.grupo_enemigos, self.grupo_balas, False, True)
-        self.colisiones_bonificaciones = pygame.sprite.spritecollide(self.jugador, self.grupo_bonificaciones, False)
-
         self.grupo_balas.update()
         self.jugador.update()
-        self.grupo_enemigos.update(self.musica, self.jugador, self.colisiones_balas)
-        self.grupo_bonificaciones.update(self.colisiones_bonificaciones, self.jugador, self.musica, disparos)
+        self.grupo_enemigos.update()
+        self.grupo_bonificaciones.update()
 
         self.pantalla.fill((0, 0, 0))
 
@@ -106,12 +103,39 @@ class Main():
         for bonificaciones in self.grupo_bonificaciones:
             bonificaciones.dibujar()
 
-        self.colisiones = pygame.sprite.spritecollide(self.jugador, self.grupo_enemigos, False)
-        if self.colisiones:
-            self.jugando = False
-            self.musica.detener_musica()
-            self.menu_muerte.mostrar_menu_muerte(self.pantalla, self.jugador.puntaje)
-            self.iniciar(disparos, lista_enemigos)
+        for bala in self.grupo_balas:
+            for enemigo in self.grupo_enemigos:
+                self.colisiones_balas = pygame.sprite.collide_mask(enemigo, bala)
+                if self.colisiones_balas:
+                    self.musica.play_boom()
+                    if not enemigo.colisionada:
+                        height = enemigo.rect.height
+                        width = enemigo.rect.width
+                        enemigo.kill()
+                        bala.kill()
+                        self.jugador.aumentar_puntaje(int((height+width)/3))
+                        enemigo.colisionada = True
+
+        for bonificacion in self.grupo_bonificaciones:
+            self.colisiones_bonificaciones = pygame.sprite.collide_mask(self.jugador, bonificacion)
+            if self.colisiones_bonificaciones and not bonificacion.recolectada:
+                self.musica.play_bonificacion()
+                self.recolectada = True
+                if bonificacion.puntos == 0:
+                    self.jugador.aumentar_disparo(disparos)
+                    bonificacion.kill()
+                else:
+                    self.jugador.aumentar_puntaje(bonificacion.puntos)
+                    bonificacion.kill()
+
+
+        for enemigo in self.grupo_enemigos:
+            self.colisiones = pygame.sprite.collide_mask(self.jugador, enemigo)
+            if self.colisiones:
+                self.jugando = False
+                self.musica.detener_musica()
+                self.menu_muerte.mostrar_menu_muerte(self.pantalla, self.jugador.puntaje)
+                self.iniciar(disparos, lista_enemigos)
             
     def control_puntaje(self):
         """
