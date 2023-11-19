@@ -48,16 +48,17 @@ class Main():
 
 
 
-    def iniciar(self, disparos = 2, lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
+    def iniciar(self, ini_dis: int, lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
         """
         Metodo que inicializa variables para iniciar el juego
+        :param ini_dis: cantidad de disparos con el que el jugador inicia
         :param disparos: cantidad de disparos que quires que inicialice el jugador
         :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
         self.musica.detener_musica_menu()
         self.musica.iniciar_musica()
         self.jugador.iniciar_puntaje()
-        self.jugador.iniciar_disparo(disparos)
+        self.jugador.iniciar_disparo(ini_dis)
         self.jugador.repocicionar()
         self.grupo_enemigos.empty()
         self.grupo_bonificaciones.empty()
@@ -82,9 +83,10 @@ class Main():
             self.grupo_bonificaciones.add(self.in_bon.iniciar_bonificaciones(self.pantalla))
         
 
-    def control_objetos(self, disparos: int, lista_enemigos):
+    def control_objetos(self,ini_dis: int, disparos: int, lista_enemigos):
         """
         Metodo que actualizar y dibujar todos los objetos en la pantalla, balas, jugador, enemigos y bonificaciones.\n
+        :param ini_dis: cantidad de disparos con el que el jugador inicia
         :param disparos: numero de cantidad de balas que da una bonifiacion de disparos
         :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
@@ -135,7 +137,7 @@ class Main():
                 self.jugando = False
                 self.musica.detener_musica()
                 self.menu_muerte.mostrar_menu_muerte(self.pantalla, self.jugador.puntaje)
-                self.iniciar(disparos, lista_enemigos)
+                self.iniciar(ini_dis, lista_enemigos)
             
     def control_puntaje(self):
         """
@@ -169,7 +171,7 @@ class Main():
 
         
 
-    def gameloop(self, tick_ene: int, tick_bon:int, ini_en: int, ini_bon = 1, disparos = 1,
+    def gameloop(self, tick_ene: int, tick_bon:int, ini_en: int, ini_bon = 1, disparos = 1, ini_dis = 3,
                  lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
         """
         Metodo que carga el gameloop principal.\n
@@ -177,6 +179,7 @@ class Main():
         :param tick_bon: cada cuantos tick se genera una bonificacion.
         :param ini_en: cantidad de enemigos que se generan en los primeros tick.
         :param ini_bon: cantidad de bonificaciones que se generan en los primeros tick (recomendado dejar en 1).
+        :param ini_dis: cantidad de disparos con el que el jugador inicia
         :param disparos: cantidad de balas que aumenta al recojer una bonificacion de municion
         :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
@@ -206,7 +209,7 @@ class Main():
             if self.gametick == 2:
                 self.iniciar_objetos(ini_en, ini_bon)
                 
-            self.control_objetos(disparos, lista_enemigos)
+            self.control_objetos(ini_dis,disparos, lista_enemigos)
             self.control_puntaje()
             self.generar_objetos(tick_ene,tick_bon)
             pygame.display.flip()
@@ -217,7 +220,8 @@ class Main():
 juego = Main()
 
 juego.menu.mostrar_menu(juego.pantalla, juego)
-juego.iniciar()
-juego.gameloop(200,1050,7,1,1)
+juego.iniciar(3)
+juego.gameloop(200,600,7,1,1,3)
+
 
 

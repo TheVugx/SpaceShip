@@ -56,22 +56,22 @@ class Menu_desafios():
                         return #menu_desafios = False  
                     if self.boton_des_1.collidepoint(event.pos):
                         juego.iniciar(100)
-                        juego.gameloop(20,1,100)
+                        juego.gameloop(300,700,25,1,50,100)
                     if self.boton_des_2.collidepoint(event.pos):
                         juego.iniciar(3,["cuadrado"])
-                        juego.gameloop(200,1050,7,1,1,["cuadrado"])
+                        juego.gameloop(250,500,15,1,1,3,["cuadrado"])
                     if self.boton_des_3.collidepoint(event.pos):
                         juego.iniciar(3,["rectangular"])
-                        juego.gameloop(200,1050,7,1,1,["rectangular"])
+                        juego.gameloop(350,550,12,1,1,3,["rectangular"])
                     if self.boton_des_4.collidepoint(event.pos):
                         juego.iniciar(3,["circular"])
-                        juego.gameloop(200,1050,7,1,1,["circular"])    
+                        juego.gameloop(350,600,17,1,1,3,["circular"])    
                     if self.boton_des_5.collidepoint(event.pos):
                         juego.iniciar(3,["hexagonal"])
-                        juego.gameloop(200,1050,7,1,1,["hexagonal"])
+                        juego.gameloop(300,600,13,1,1,3,["hexagonal"])
                     if self.boton_des_6.collidepoint(event.pos):
                         juego.iniciar(3,["octagonal"])
-                        juego.gameloop(200,1050,7,1,1,["octagonal"])
+                        juego.gameloop(300,600,12,1,1,3,["octagonal"])
 
 
             pantalla.fill((0, 0, 0))  

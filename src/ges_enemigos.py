@@ -25,11 +25,11 @@ class ges_enemigos():
         if self.tipo_enemigo == "rectangular":
             nuevo_enemigo = EnemigoRectangular(pantalla, random.randrange(8,12,1), random.randrange(20,35,5), random.randrange(50,80,2))
         elif self.tipo_enemigo == "cuadrado":
-            nuevo_enemigo = EnemigoCuadrado(pantalla, random.randrange(6,8,1), random.randrange(10,26,2))
+            nuevo_enemigo = EnemigoCuadrado(pantalla, random.randrange(5,8,1), random.randrange(10,26,2))
         elif self.tipo_enemigo == "circular":
-            nuevo_enemigo = EnemigoCircular(pantalla, random.randrange(4), random.randrange(20,40,2))
+            nuevo_enemigo = EnemigoCircular(pantalla, random.randrange(1,5,1), random.randrange(20,40,2))
         elif self.tipo_enemigo == "hexagonal":
-            nuevo_enemigo = EnemigoHexagonal(pantalla, random.randrange(4,6,1), random.randrange(40,60,2))
+            nuevo_enemigo = EnemigoHexagonal(pantalla, random.randrange(3,6,1), random.randrange(40,60,2))
         elif self.tipo_enemigo == "octagonal":
             nuevo_enemigo = EnemigoOctagonal(pantalla, random.randrange(2,6,1), random.randrange(60,80,2))
         

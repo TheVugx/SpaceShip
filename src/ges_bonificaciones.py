@@ -17,14 +17,14 @@ class ges_bonificaciones():
         Metodo que crea una bonifiacion al azar de la lista["disparo", "chica", "mediana", "grande"].\n
         :param pantalla: valores de la pantalla del juego.
         """
-        self.tipo_bonificacion = random.choice(["disparo","disparo", "chica", "mediana", "grande"]) 
+        self.tipo_bonificacion = random.choice(["disparo","disparo", "chica","chica","chica", "mediana","mediana", "grande"]) 
 
         if self.tipo_bonificacion == "chica":
-            nueva_bonificacion = Bonificacion_puntos(pantalla, random.randrange(8,12))
+            nueva_bonificacion = Bonificacion_puntos(pantalla, random.randrange(10,16))
         elif self.tipo_bonificacion == "mediana":
-            nueva_bonificacion = Bonificacion_puntos(pantalla, random.randrange(18,22))
+            nueva_bonificacion = Bonificacion_puntos(pantalla, random.randrange(12,26))
         elif self.tipo_bonificacion == "grande":
-            nueva_bonificacion = Bonificacion_puntos(pantalla, random.randrange(28,32))
+            nueva_bonificacion = Bonificacion_puntos(pantalla, random.randrange(23,36))
         elif self.tipo_bonificacion == "disparo":
             nueva_bonificacion = Bonificaciones_disparo(pantalla)
 
