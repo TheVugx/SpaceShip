@@ -1,6 +1,7 @@
 import pygame
 
 from musica import Musica
+from firebase import Fireb
 
 class Menu_config():
     """
@@ -13,13 +14,17 @@ class Menu_config():
         """
         self.musica = musica
         self.valor_volumen_juego = 0.5
-        self.valor_volumen_menu = 0.5
+        self.valor_volumen_menu = 0.2
         self.valor_volumen_efectos = 0.4
         self.barra_menu = pygame.Rect(370, 200, 300, 10)
         self.barra_juego = pygame.Rect(370, 250, 300, 10)
         self.barra_efectos = pygame.Rect(370, 300, 300, 10)
         self.boton_aplicar = pygame.Rect(130, 500, 200, 50) 
         self.boton_volver = pygame.Rect(470, 500, 200, 50)
+        self.fireb = Fireb()
+        
+
+
 
     def actualizar_volumen_musica_game(self, nuevo_volumen: float):
         """

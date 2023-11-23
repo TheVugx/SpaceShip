@@ -1,12 +1,15 @@
 import pygame
 import random
 
-from jugador import Jugador
+from jugador import Jugador, JugadorChikito
 from menu import Menu
 from menu_muerte import Menu_muerte
 from ges_enemigos import ges_enemigos
 from ges_bonificaciones import ges_bonificaciones
 from musica import Musica
+from menu_registro import Menu_registro
+from firebase import Fireb
+
 
 class Main():
     """
@@ -22,9 +25,11 @@ class Main():
         self.FPS = 60
         self.puntaje_anterior = 1
         self.gametick = 1
+        self.nombre = ""
 
         self.menu_muerte = Menu_muerte(self.musica, self)
         self.menu = Menu(self.musica)
+        self.highscore = Fireb()
 
         self.pantalla = pygame.display.set_mode((self.ANCHO, self.ALTO))
         pygame.display.set_caption("SpaceShip")
@@ -45,16 +50,21 @@ class Main():
         self.jugando = True
         self.movimiento_izquierda = False
         self.movimiento_derecha = False
+    def nombre_jugador(self, nombre):
+        self.nombre = nombre
 
-
-
-    def iniciar(self, ini_dis: int, lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
+    def iniciar(self, ini_dis: int,desafio = "Default", lista_enemigos = ["rectangular","cuadrado", "octagonal", "hexagonal"]):
         """
         Metodo que inicializa variables para iniciar el juego
         :param ini_dis: cantidad de disparos con el que el jugador inicia
         :param disparos: cantidad de disparos que quires que inicialice el jugador
         :param lista_enemigos: lista de enemigos que el gameloop va a manejar
         """
+        self.desafio = desafio
+        if self.desafio == "chikito":
+            self.jugador = JugadorChikito(self.pantalla)
+        if self.desafio == "Default":
+            self.jugador = Jugador(self.pantalla)
         self.musica.detener_musica_menu()
         self.musica.iniciar_musica()
         self.jugador.iniciar_puntaje()
@@ -69,6 +79,7 @@ class Main():
         self.puntaje_anterior = 1
         self.gametick = 1
         self.in_ene = ges_enemigos(lista_enemigos)
+        
 
 
     def iniciar_objetos(self, cantidad_en: int, cantidad_bon: int):
@@ -134,6 +145,7 @@ class Main():
         for enemigo in self.grupo_enemigos:
             self.colisiones = pygame.sprite.collide_mask(self.jugador, enemigo)
             if self.colisiones:
+                self.highscore.guardar_puntuacion(self.nombre ,self.jugador.puntaje)
                 self.jugando = False
                 self.musica.detener_musica()
                 self.menu_muerte.mostrar_menu_muerte(self.pantalla, self.jugador.puntaje)
@@ -217,11 +229,18 @@ class Main():
         pygame.quit()
 
 
+menu_registro = Menu_registro()
 juego = Main()
-
-juego.menu.mostrar_menu(juego.pantalla, juego)
+menu_registro.menu = False
+juego.nombre = menu_registro.cargar_nombre()
+print(juego.nombre)
+if juego.nombre == None:
+    menu_registro.mostrar_menu_registro()
+juego.menu.mostrar_menu(juego.pantalla, juego, juego.musica)
 juego.iniciar(3)
-juego.gameloop(200,600,7,1,1,3)
+
+
+juego.gameloop(500,600,7,1,1,3)
 
 
 

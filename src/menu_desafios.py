@@ -55,23 +55,27 @@ class Menu_desafios():
                     if self.boton_volver_menu.collidepoint(event.pos):
                         return #menu_desafios = False  
                     if self.boton_des_1.collidepoint(event.pos):
-                        juego.iniciar(100)
-                        juego.gameloop(300,700,25,1,50,100)
+                        juego.iniciar(100, "Default")
+                        juego.gameloop(400,700,20,1,50,100)
                     if self.boton_des_2.collidepoint(event.pos):
-                        juego.iniciar(3,["cuadrado"])
-                        juego.gameloop(250,500,15,1,1,3,["cuadrado"])
+                        juego.iniciar(3,"Default",["cuadrado"])
+                        juego.gameloop(350,500,15,1,1,3,["cuadrado"])
                     if self.boton_des_3.collidepoint(event.pos):
-                        juego.iniciar(3,["rectangular"])
-                        juego.gameloop(350,550,12,1,1,3,["rectangular"])
+                        juego.iniciar(3,"Default",["rectangular"])
+                        juego.gameloop(450,550,12,1,1,3,["rectangular"])
                     if self.boton_des_4.collidepoint(event.pos):
-                        juego.iniciar(3,["circular"])
-                        juego.gameloop(350,600,17,1,1,3,["circular"])    
+                        juego.iniciar(3,"Default",["circular"])
+                        juego.gameloop(450,600,17,1,1,3,["circular"])    
                     if self.boton_des_5.collidepoint(event.pos):
-                        juego.iniciar(3,["hexagonal"])
-                        juego.gameloop(300,600,13,1,1,3,["hexagonal"])
+                        juego.iniciar(3,"Default",["hexagonal"])
+                        juego.gameloop(400,600,13,1,1,3,["hexagonal"])
                     if self.boton_des_6.collidepoint(event.pos):
-                        juego.iniciar(3,["octagonal"])
-                        juego.gameloop(300,600,12,1,1,3,["octagonal"])
+                        juego.iniciar(3,"Default",["octagonal"])
+                        juego.gameloop(400,600,12,1,1,3,["octagonal"])
+                    if self.boton_des_7.collidepoint(event.pos):
+                        juego.iniciar(2,"chikito")
+                        juego.gameloop(450,700,18,1,1,2)
+
 
 
             pantalla.fill((0, 0, 0))  

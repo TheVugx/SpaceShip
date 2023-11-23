@@ -38,7 +38,7 @@ class Menu_muerte():
                     elif self.boton_salir_menu.collidepoint(event.pos):
                         menu = False
                         puntaje_valor = 1
-                        self.menu.mostrar_menu(pantalla, self.juego)
+                        self.menu.mostrar_menu(pantalla, self.juego, Musica)
             font = pygame.font.Font(None, 38)
             fontEspecial = pygame.font.Font(None, 76)
             pantalla.blit(self.logo, (200, 20))

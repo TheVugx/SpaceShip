@@ -90,3 +90,14 @@ class Jugador(pygame.sprite.Sprite):
         """
         self.rect.x = self.pantalla.get_width() / 2
 
+class JugadorChikito(Jugador):
+
+    def __init__(self, pantalla: pygame.Surface):
+        super().__init__(pantalla)
+        self.image = pygame.Surface((50, 50), pygame.SRCALPHA)
+        pygame.draw.polygon(self.image, (255, 255, 255), [(0, 30), (15, 0), (30, 30)])
+        self.rect = self.image.get_rect()
+        self.rect.center = (pantalla.get_width() // 2, pantalla.get_height() - 50)
+        self.pantalla = pantalla
+        self.puntaje = 0
+        self.disparo = 0
